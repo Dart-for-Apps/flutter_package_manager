@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  Image appImage;
 
   @override
   void initState() {
@@ -26,6 +27,10 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await FlutterPackageManager.platformVersion;
+      final value =
+          await FlutterPackageManager.getPackageInfo("com.kakao.talk");
+      appImage = value.appIcon;
+      debugPrint("I got $value");
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -48,7 +53,13 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("Platform: $_platformVersion"),
+              if (appImage != null) appImage,
+            ],
+          ),
         ),
       ),
     );

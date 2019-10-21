@@ -26,21 +26,25 @@ class PackageInfo {
     this.appIconByteArray,
   });
 
-  factory PackageInfo.fromMap(Map map) => PackageInfo(
-        packageName: map['packageName'],
-        appIconByteArray: _eliminateNewLine(map['appIcon']),
-        appName: map['appName'],
-      );
+  factory PackageInfo.fromMap(Map map) => map == null
+      ? null
+      : PackageInfo(
+          packageName: map['packageName'],
+          appIconByteArray: _eliminateNewLine(map['appIcon']),
+          appName: map['appName'],
+        );
 
   final String packageName;
   final String appName;
   final String appIconByteArray;
 
-  Image get appIcon => Image.memory(base64Decode(appIconByteArray));
+  Image get appIcon => appIconByteArray != null
+      ? Image.memory(base64Decode(appIconByteArray))
+      : null;
 
-  static String _eliminateNewLine(String s) => s.replaceAll('\n', '');
+  static String _eliminateNewLine(String s) => s?.replaceAll('\n', '');
 
   @override
   String toString() =>
-      'Package: $packageName, AppName: $appName, IconByteArray size: ${appIconByteArray.length}';
+      'Package: $packageName, AppName: $appName, IconByteArray size: ${appIconByteArray?.length}';
 }

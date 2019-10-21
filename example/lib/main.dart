@@ -28,8 +28,8 @@ class _MyAppState extends State<MyApp> {
     try {
       platformVersion = await FlutterPackageManager.platformVersion;
       final value =
-          await FlutterPackageManager.getPackageInfo("com.kakao.talk");
-      appImage = value.appIcon;
+          await FlutterPackageManager.getPackageInfo("com.kakao.talk1");
+      appImage = value?.appIcon;
       debugPrint("I got $value");
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';

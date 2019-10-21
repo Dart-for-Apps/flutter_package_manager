@@ -17,6 +17,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import org.json.JSONArray
 import java.io.ByteArrayOutputStream
+import java.lang.Exception
 
 const val METHOD_CHANNEL = "dev.wurikiji.flutter_package_manager.method_channel"
 const val TAG = "Flutter Package Manager"
@@ -48,22 +49,25 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
         result.notImplemented()
       }
     }
-    if (call.method == "getPlatformVersion") {
-    } else {
-    }
   }
-  private fun getPackageInfo(packageName: String) : java.util.HashMap<String, Any?> {
-    val info = java.util.HashMap<String, Any?>()
-    val appInfo: ApplicationInfo = sContext!!.packageManager
-            .getApplicationInfo(packageName, PackageManager.GET_META_DATA)
-    val appName: String? = sContext!!.packageManager.getApplicationLabel(appInfo).toString()
-    val appIcon: Drawable = sContext!!.packageManager.getApplicationIcon(appInfo.packageName) ?: sContext!!.getDrawable(R.drawable.ic_launcher)
-    val byteImage = drawableToBase64String(appIcon)
+  private fun getPackageInfo(packageName: String) : java.util.HashMap<String, Any?>? {
+    var info: java.util.HashMap<String, Any?>? = java.util.HashMap()
+    try {
+      val appInfo: ApplicationInfo? = sContext!!.packageManager
+              .getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+      val appName: String? = sContext!!.packageManager.getApplicationLabel(appInfo)?.toString()
+      val appIcon: Drawable = sContext!!.packageManager.getApplicationIcon(appInfo?.packageName) ?: sContext!!.getDrawable(R.drawable.ic_launcher)
+      val byteImage = drawableToBase64String(appIcon)
 
-    info["packageName"] = appInfo.packageName
-    info["appName"] = appName
-    info["appIcon"] = byteImage
-    return info
+      info!!["packageName"] = appInfo?.packageName
+      info["appName"] = appName
+      info["appIcon"] = byteImage
+    } catch (e: Exception) {
+      Log.i(TAG, "$packageName not installed: $e")
+        info = null
+    } finally {
+      return info
+    }
   }
 
   private fun drawableToBitmap(drawable: Drawable) : Bitmap {

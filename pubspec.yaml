@@ -1,6 +1,6 @@
 name: flutter_package_manager
 description: An android plugin supporting `PakcageManager`.
-version: 0.0.2
+version: 0.0.3
 author: Gihwan Oh <wurikiji@gmail.com>
 homepage: https://github.com/Dart-for-Apps/flutter_package_manager
 repository: https://github.com/Dart-for-Apps/flutter_package_manager

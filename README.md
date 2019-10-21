@@ -24,5 +24,6 @@ Future<PackageInfo> getPackageInfo() async {
 `PackageInfo` class contains `packageName`, `appName` and `appIconByteArray`.
 `appIconByteArray` is an array of `base64` byte image of app icon.
 You can get flutter's `Image` widget icon by `appIcon` getter. 
+If the app is not installed, than `null` is returned. 
 
-See the `./example` folder for the details. 
+See the `./example` and `./lib` folders for the details. 

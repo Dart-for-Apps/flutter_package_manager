@@ -1,6 +1,6 @@
 name: flutter_package_manager
-description: An android plugin supporting `PakcageManager`.
-version: 0.0.3
+description: An android plugin supporting `PakcageManager`. You can get all of the installed apps and their app icon.
+version: 0.1.0
 author: Gihwan Oh <wurikiji@gmail.com>
 homepage: https://github.com/Dart-for-Apps/flutter_package_manager
 repository: https://github.com/Dart-for-Apps/flutter_package_manager
@@ -30,7 +30,6 @@ flutter:
   plugin:
     androidPackage: dev.wurikiji.flutter_package_manager
     pluginClass: FlutterPackageManagerPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -41,7 +40,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

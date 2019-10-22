@@ -1,3 +1,7 @@
+## 0.1.0
+
+- add `getInstalledPackages()`
+
 ## 0.0.3
 
 Add management of uninstalled apps
@@ -8,4 +12,4 @@ Add example
 
 ## 0.0.1
 
-* TODO: Describe initial release.
+- TODO: Describe initial release.

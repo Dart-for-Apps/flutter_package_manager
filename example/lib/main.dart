@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   Image appImage;
+  List installedApps;
 
   @override
   void initState() {
@@ -28,8 +29,9 @@ class _MyAppState extends State<MyApp> {
     try {
       platformVersion = await FlutterPackageManager.platformVersion;
       final value =
-          await FlutterPackageManager.getPackageInfo("com.kakao.talk1");
+          await FlutterPackageManager.getPackageInfo("com.facebook.katana");
       appImage = value?.appIcon;
+      installedApps = await FlutterPackageManager.getInstalledPackages();
       debugPrint("I got $value");
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
@@ -53,10 +55,9 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
             children: <Widget>[
-              Text("Platform: $_platformVersion"),
+              Text("Platform: $_platformVersion with\n$installedApps"),
               if (appImage != null) appImage,
             ],
           ),

@@ -23,7 +23,6 @@ const val METHOD_CHANNEL = "dev.wurikiji.flutter_package_manager.method_channel"
 const val TAG = "Flutter Package Manager"
 class FlutterPackageManagerPlugin: MethodCallHandler {
   companion object {
-
     var sContext: Context? = null
     @JvmStatic
     fun registerWith(registrar: Registrar) {
@@ -45,11 +44,28 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
           val args = call.arguments as JSONArray
           result.success(getPackageInfo(args[0] as String))
       }
+      "getInstalledPackages" -> {
+          result.success(getInstalledPackages())
+      }
       else -> {
         result.notImplemented()
       }
     }
   }
+
+    /// get all installed packages's package name
+  private fun getInstalledPackages(): ArrayList<String> {
+    val ret = ArrayList<String>()
+    sContext!!
+            .packageManager
+            .getInstalledPackages(PackageManager.GET_META_DATA)
+            .forEach {
+                ret.add(it.packageName)
+            }
+    return ret
+  }
+
+  /// get package name, app name, app icon
   private fun getPackageInfo(packageName: String) : java.util.HashMap<String, Any?>? {
     var info: java.util.HashMap<String, Any?>? = java.util.HashMap()
     try {
@@ -70,6 +86,7 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
     }
   }
 
+  /// get bitmap style drawable
   private fun drawableToBitmap(drawable: Drawable) : Bitmap {
     var bitmap: Bitmap? = null
 
@@ -91,6 +108,7 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
     return bitmap
   }
 
+    /// get base64 encoded string from drawable
   private fun drawableToBase64String(drawable: Drawable) : String{
     val bitmap: Bitmap = drawableToBitmap(drawable)
     val baos = ByteArrayOutputStream()
@@ -98,6 +116,4 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
     val b = baos.toByteArray()
     return Base64.encodeToString(b, Base64.DEFAULT)
   }
-
-
 }

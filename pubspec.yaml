@@ -1,6 +1,6 @@
 name: flutter_package_manager
 description: An android plugin supporting `PakcageManager`. You can get all of the installed apps and their app icon.
-version: 0.1.0+1
+version: 0.1.1
 author: Gihwan Oh <wurikiji@gmail.com>
 homepage: https://github.com/Dart-for-Apps/flutter_package_manager
 repository: https://github.com/Dart-for-Apps/flutter_package_manager

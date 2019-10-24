@@ -54,9 +54,19 @@ class PackageInfo {
   final String appIconByteArray;
 
   /// Get flutter's `Image` widget from the byte array of app icon
-  Image get appIcon => appIconByteArray != null
-      ? Image.memory(base64Decode(appIconByteArray))
-      : null;
+  Image getAppIcon({
+    BoxFit fit = BoxFit.fill,
+    double height = 32.0,
+    double width = 32.0,
+  }) =>
+      appIconByteArray != null
+          ? Image.memory(
+              base64Decode(appIconByteArray),
+              fit: fit,
+              height: height,
+              width: width,
+            )
+          : null;
 
   @override
   String toString() =>

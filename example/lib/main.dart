@@ -28,9 +28,11 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await FlutterPackageManager.platformVersion;
-      final value =
-          await FlutterPackageManager.getPackageInfo("com.facebook.katana");
-      appImage = value?.appIcon;
+      final value = await FlutterPackageManager.getPackageInfo(
+          "dev.wurikiji.flutter_hook_test");
+      appImage = value?.getAppIcon(
+        fit: BoxFit.contain,
+      );
       installedApps = await FlutterPackageManager.getInstalledPackages();
       debugPrint("I got $value");
     } on PlatformException {

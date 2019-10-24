@@ -5,11 +5,16 @@ You can retrieve the `app name`, `app launcher icon` through
 this package with its `package name`. The package should be
 installed on a device.
 
-This plugin supports android only.
+This plugin supports android only and it is based on `androidx`.
 
 # How to use
 
 See the `./example` and `./lib` folders for the details.
+
+## Modify minSdkVersion of the android gradle
+
+In the `android/app` folder open the `build.gradle` file and edit `minSdkVersion`
+to greater than or equal to 22.
 
 ## Get package information from the package name
 

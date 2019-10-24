@@ -1,3 +1,7 @@
+## 0.1.0_+1
+
+- add `androidx` and `minSdkVersion` caution.
+
 ## 0.1.0
 
 - add `getInstalledPackages()`

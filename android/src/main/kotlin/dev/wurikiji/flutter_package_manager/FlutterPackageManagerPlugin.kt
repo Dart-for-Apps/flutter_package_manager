@@ -19,6 +19,8 @@ import org.json.JSONArray
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
+
+
 const val METHOD_CHANNEL = "dev.wurikiji.flutter_package_manager.method_channel"
 const val TAG = "Flutter Package Manager"
 class FlutterPackageManagerPlugin: MethodCallHandler {
@@ -47,6 +49,9 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
       "getInstalledPackages" -> {
           result.success(getInstalledPackages())
       }
+      "getUserInstalledPackages" -> {
+        result.success(getInstalledPackages(true))
+      }
       else -> {
         result.notImplemented()
       }
@@ -54,13 +59,19 @@ class FlutterPackageManagerPlugin: MethodCallHandler {
   }
 
     /// get all installed packages's package name
-  private fun getInstalledPackages(): ArrayList<String> {
+  private fun getInstalledPackages(userInstalled: Boolean = false): ArrayList<String> {
     val ret = ArrayList<String>()
     sContext!!
             .packageManager
             .getInstalledPackages(PackageManager.GET_META_DATA)
             .forEach {
-                ret.add(it.packageName)
+                var pName: String? = it.packageName
+                if (userInstalled) {
+                  val isSystemApp = (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) !== 0
+                  if (isSystemApp) pName = null
+                }
+              if (pName != null)
+                ret.add(pName)
             }
     return ret
   }

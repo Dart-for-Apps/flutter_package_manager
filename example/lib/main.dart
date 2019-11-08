@@ -15,6 +15,7 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   Image appImage;
   List installedApps;
+  List userInstalledApps;
 
   @override
   void initState() {
@@ -34,6 +35,8 @@ class _MyAppState extends State<MyApp> {
         fit: BoxFit.contain,
       );
       installedApps = await FlutterPackageManager.getInstalledPackages();
+      userInstalledApps =
+          await FlutterPackageManager.getUserInstalledPackages();
       debugPrint("I got $value");
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
@@ -59,7 +62,10 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: ListView(
             children: <Widget>[
-              Text("Platform: $_platformVersion with\n$installedApps"),
+              Text(
+                  "Platform: $_platformVersion with\n${installedApps?.length}"),
+              Text(
+                  "Platform: $_platformVersion with\n${userInstalledApps?.length}"),
               if (appImage != null) appImage,
             ],
           ),

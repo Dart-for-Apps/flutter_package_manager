@@ -1,8 +1,12 @@
+## 0.2.0
+
+- Add `getUserInstalledPackages()`
+
 ## 0.1.1
 
 - change `appIcon` to `getAppIcon()` with basic parameters.
 
-## 0.1.0_+1
+## 0.1.0\_+1
 
 - add `androidx` and `minSdkVersion` caution.
 

@@ -43,7 +43,11 @@ import 'package:flutter_package_manager/flutter_package_manager.dart';
 /// ... other codes
 
 Future<List> getInstalledPackages() async {
+  // All apps including system apps
   List packages = await FlutterPackageManager.getInstalledPackages();
+
+  // Apps installed by user
+  List userInstalledPackages = await FlutterPackageManager.getUserInstalledPackages();
   return packages;
 }
 ```

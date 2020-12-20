@@ -39,4 +39,13 @@ class FlutterPackageManager {
   static Future<List> getUserInstalledPackages() async {
     return await _channel.invokeMethod('getUserInstalledPackages');
   }
+
+  /// Get the information about an apk file stored on your local Storage.
+  /// Pass the path of the apk file like `getPackageInfoByApkFile('/storage/emulated/0/xyz.apk')`.
+  /// And you can get the `PackageName`, `AppName`, And `ApplicationIcon`
+  static Future<PackageInfo> getPackageInfoByApkFile(String path) async {
+    Map result =
+        await _channel.invokeMethod('getPackageInfoByApkFile', <dynamic>[path]);
+    return PackageInfo.fromMap(result);
+  }
 }
